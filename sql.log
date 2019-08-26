@@ -1,0 +1,11 @@
+CREATE TABLE `message` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '名字',
+  `review` varchar(500) NOT NULL DEFAULT '' COMMENT '评论',
+  `reply`  varchar(500) NOT NULL COMMENT '回复',
+  `site`  varchar(500) NOT NULL COMMENT '网址',
+  `created` datetime DEFAULT NULL COMMENT '创建时间',
+  `updated` datetime DEFAULT NULL COMMENT '回复时间',
+  `status` int(11) DEFAULT '1' COMMENT '1可用，2禁用',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
