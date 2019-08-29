@@ -1,6 +1,6 @@
 <div id="sideBarMain">
     <div id="sidebar_news" class="newsItem"><!--done-->
-        <h3 class="catListTitle">关于我</h3>
+        <h3 class="catListTitle diyBg">关于我</h3>
         <div id="blog-news">
             <div id="profile_block">
                 昵称：
@@ -27,7 +27,7 @@
     <div id="sidebar_categories">
 
         <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
-            <h3 class="catListTitle">随笔档案</h3>
+            <h3 class="catListTitle diyBg">随笔档案</h3>
             <ul>
                 {{range $k,$v := $.DateTime}}
                     <li>
@@ -44,7 +44,7 @@
     </div>
     <div id="sidebar_topviewedposts" class="sidebar-block">
         <div class="catListView">
-            <h3 class="catListTitle">阅读排行榜</h3>
+            <h3 class="catListTitle diyBg">阅读排行榜</h3>
             <div id="TopViewPostsBlock">
                 <ul style="word-break:break-all">
                     {{range $k,$v := $.ArticlesReadSort}}

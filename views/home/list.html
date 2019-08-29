@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="/static/css/blog-common.min.css" />
     <link id="MainCss" rel="stylesheet" href="/static/css/bundle-codinglife.min.css" />
     <link id="mobile-style" media="only screen and (max-width: 767px)" type="text/css" rel="stylesheet" href="/static/css/bundle-codinglife-mobile.min.css" />
-
+    <link rel="stylesheet" href="/static/css/{{$.bgClass}}.css" />
 </head>
 <style>
     .day{
@@ -67,7 +67,7 @@
                 <!--done-->
                 {{range $key ,$vlaue := $.Data}}
                 <div class="day">
-                    <div class="dayTitle">
+                    <div class="dayTitle diyBg">
                         <a href="/list.html?date={{dateformat $vlaue.Created "2006-01-02"}}">{{$vlaue.Created}}</a>
                     </div>
                     <div class="postTitle">
@@ -89,18 +89,22 @@
                 </div>
                 {{end}}
 
+
                 <div class="topicListFooter">
                     <div id="nav_next_page">
                         {{if gt .Paginator.CurrentPage 1}}
-                            <a class="prev" href="{{urlfor "home.ArticleController.List"}}?page={{IndexDecrOne $.Paginator.CurrentPage}}{{if $.Date}}&date={{$.Date}}{{end}}">上一页</a>
+                            <a class="prev" href="{{urlfor "home.ArticleController.List"}}?page={{IndexDecrOne $.Paginator.CurrentPage}}{{if $.Date}}&date={{$.Date}}{{end}}{{if $.CategoryID}}&c={{$.CategoryID}}{{end}}">上一页</a>
                         {{end}}
                         {{if lt .Paginator.CurrentPage .Paginator.TotalPage}}
-                            <a class="next" href="{{urlfor "home.ArticleController.List"}}?page={{IndexAddOne $.Paginator.CurrentPage}}{{if $.Date}}&date={{$.Date}}{{end}}">下一页</a>
+                            <a class="next" href="{{urlfor "home.ArticleController.List"}}?page={{IndexAddOne $.Paginator.CurrentPage}}{{if $.Date}}&date={{$.Date}}{{end}}{{if $.CategoryID}}&c={{$.CategoryID}}{{end}}">下一页</a>
                         {{end}}
-                        <span class="current">第 {{.Paginator.CurrentPage}} 页 </span>
-                        <span class="num">总 {{.Paginator.TotalPage}} 页</span>
+                        {{if gt .Paginator.TotalPage 0}}
+                            <span class="current">第 {{.Paginator.CurrentPage}} 页 </span>
+                            <span class="num">总 {{.Paginator.TotalPage}} 页</span>
+                        {{end}}
                     </div>
                 </div>
+
             </div><!--end: forFlow -->
 
         </div><!--end: mainContent 主体内容容器-->

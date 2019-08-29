@@ -48,7 +48,7 @@ func (c *MessageController) Get() {
 	c.Data["StatusText"] = admin.Status
 
 
-
+	c.Menu()
 	c.Layout()
 	c.TplName = "home/message.html"
 }

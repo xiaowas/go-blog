@@ -41,6 +41,21 @@ func (c *BaseController) Layout() {
 	c.Data["ArticlesReadSort"] = articlesReadSort
 }
 
-func (c *BaseController) Prepare() {
+func (c *BaseController) Menu()  {
+
+	o := orm.NewOrm()
+
+	category := new(admin.Category)
+	var categorys []*admin.Category
+	cqs := o.QueryTable(category)
+	cqs = cqs.Filter("status", 1)
+	cqs = cqs.Filter("pid", 0)
+	cqs.OrderBy("-sort").All(&categorys)
+	c.Data["Menu"] = categorys
+
+}
+func (c *BaseController) Prepare(){
+	c.Data["bgClass"] = "bgColor"
 	c.Data["T"] = time.Now()
 }
+

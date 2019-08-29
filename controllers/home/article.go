@@ -20,6 +20,7 @@ func (c *ArticleController) List() {
 	limit, _ := beego.AppConfig.Int64("limit") // 一页的数量
 	page, _ := c.GetInt64("page", 1)           // 页数
 	offset := (page - 1) * limit               // 偏移量
+	categoryId, _ := c.GetInt("c", 0)           // 页数
 
 	o := orm.NewOrm()
 	article := new(admin.Article)
@@ -29,6 +30,33 @@ func (c *ArticleController) List() {
 	qs = qs.Filter("status", 1)
 	qs = qs.Filter("User__Name__isnull", false)
 	qs = qs.Filter("Category__Name__isnull", false)
+
+	if categoryId != 0 {
+
+		category := new(admin.Category)
+		var categorys []*admin.Category
+		cqs := o.QueryTable(category)
+		cqs = cqs.Filter("status", 1)
+		cqs.OrderBy("-sort").All(&categorys)
+
+		ids := utils.CategoryTreeR(categorys,categoryId,0)
+
+		var cids []int
+		cids = append(cids,categoryId)
+		for _,v := range ids{
+			cids = append(cids,v.Id)
+		}
+
+		/*c.Data["json"] = cids
+		c.ServeJSON()
+		c.StopRun()*/
+
+		qs = qs.Filter("Category__ID__in", cids)
+
+
+	}
+	c.Data["CategoryID"] = &categoryId
+	// 查出当前分类下的所有子分类id
 
 	date := c.GetString("date")
 	if date != "" {
@@ -93,14 +121,18 @@ func (c *ArticleController) List() {
 
 
 	// 获取数据
-	_, err = qs.OrderBy("-pv", "-id").RelatedSel().Limit(limit).Offset(offset).All(&articles)
+	_, err = qs.OrderBy("-id","-pv").RelatedSel().Limit(limit).Offset(offset).All(&articles)
 	if err != nil {
 		panic(err)
 	}
 	c.Data["Data"] = &articles
 	c.Data["Paginator"] = utils.GenPaginator(page, limit, count)
 
+
+	// Menu
+	c.Menu()
 	c.Layout()
+
 	c.TplName = "home/list.html"
 }
 
@@ -123,7 +155,8 @@ func (c *ArticleController) Detail() {
 	c.StopRun()*/
 
 	c.Data["Data"] = &articles[0]
-
+	
+	c.Menu()
 	c.Layout()
 	c.TplName = "home/detail.html"
 }

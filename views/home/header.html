@@ -1,5 +1,5 @@
 <div id="header">
-    <div>
+    <div class="header-bg">
         <div id="blogTitle">
             <a id="lnkBlogLogo" href="/">
                 <img id="blogLogo" src="/static/images/logo.gif" alt="返回主页" />
@@ -16,7 +16,7 @@
 
         </div>
     </div><!--end: blogTitle 博客的标题和副标题 -->
-    <div id="navigator">
+    <div id="navigator" class="diyBg">
 
         <ul id="navList">
             <li>
@@ -24,12 +24,13 @@
                     首页
                 </a>
             </li>
-            <li>
-
-                <a id="blog_nav_contact" class="menu" href="/list.html">
-                    随笔
-                </a>
-            </li>
+            {{range $k ,$v := $.Menu}}
+                <li>
+                    <a id="blog_nav_contact" class="menu" href="/list.html?c={{$v.Id}}">
+                        {{$v.Name}}
+                    </a>
+                </li>
+            {{end}}
             <li>
                 <a id="blog_nav_contact" class="menu" href="/message.html">
                     留言
