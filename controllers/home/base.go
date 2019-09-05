@@ -20,16 +20,20 @@ func (c *BaseController) Layout() {
 	var articlesTime []*admin.Article
 	nqs := o.QueryTable(articleTime)
 	nqs = nqs.Filter("status", 1)
-	nqs.RelatedSel().All(&articlesTime,"Created")
+	nqs.OrderBy("-Created").RelatedSel().All(&articlesTime,"Created")
 	var datetime = make(map[string]int64)
+	var dateTimeKey []string
 	for _,v := range articlesTime  {
 		//str = append(str ,v.Created.Format("2006-01"))
 		//c.Ctx.WriteString(v.Created.Format("2006-01"))
 		k := v.Created.Format("2006-01")
+		if datetime[k] == 0{
+			dateTimeKey = append(dateTimeKey,k)
+		}
 		datetime[k] = datetime[k] + 1
 	}
 	c.Data["DateTime"] = datetime
-
+	c.Data["DateTimeKey"] = dateTimeKey
 
 	// 阅读排序
 	articleReadSort := new(admin.Article)

@@ -72,7 +72,7 @@ func (c *ArticleController) List() {
 	qs = qs.SetCond(cond1)*/
 
 	// 获取数据
-	_, err := qs.OrderBy("-pv", "-id").RelatedSel().Limit(limit).Offset(offset).All(&articles)
+	_, err := qs.OrderBy("-id","-pv").RelatedSel().Limit(limit).Offset(offset).All(&articles)
 
 	if err != nil {
 		c.Abort("404")

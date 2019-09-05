@@ -3,6 +3,7 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"leechan.inline/controllers/admin"
+	"leechan.inline/controllers/common"
 	"leechan.inline/controllers/home"
 )
 
@@ -58,6 +59,10 @@ func init() {
 	// 评论保存
 	beego.Router("article/review", &home.ArticleController{}, "Post:Review")
 	beego.Router("article/review/:id([0-9]+).html", &home.ArticleController{}, "Get:ReviewList")
+
+
+	// 文件上传
+	beego.Router("/uploads.html", &common.UploadsController{}, "Post:Uploads")
 
 
 

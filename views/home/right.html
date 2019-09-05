@@ -3,9 +3,9 @@
         <h3 class="catListTitle diyBg">关于我</h3>
         <div id="blog-news">
             <div id="profile_block">
-                昵称：
-                <a title="职业第三者" href="javascript:;">
-                    职业第三者
+                姓名：
+                <a title="陈立（花名：猴子）" href="javascript:;">
+                    陈立（花名：猴子）
                 </a>
                 <br>
                 简介：
@@ -29,10 +29,10 @@
         <div id="sidebar_postarchive" class="catListPostArchive sidebar-block">
             <h3 class="catListTitle diyBg">随笔档案</h3>
             <ul>
-                {{range $k,$v := $.DateTime}}
+                {{range $k,$v := $.DateTimeKey}}
                     <li>
-                        <a title="{{StringReplace $k "-" "年"}}月" href="/list.html?date={{$k}}" rel="">
-                            {{StringReplace $k "-" "年"}}月({{$v}})
+                        <a title="{{StringReplace $v "-" "年"}}月" href="/list.html?date={{$v}}" rel="">
+                            {{StringReplace $v "-" "年"}}月({{index $.DateTime $v}})
                         </a>
                     </li>
                 {{end}}

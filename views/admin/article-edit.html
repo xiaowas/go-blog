@@ -85,6 +85,9 @@
                     syncScrolling : "single",
                     saveHTMLToTextarea : true,
                     path    : "/static/md/lib/",
+                    imageUpload    : true,
+                    imageFormats   : ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                    imageUploadURL : "/uploads.html",
                     onload : function() {
                         this.setMarkdown({{.Data.Desc}});
                     }
